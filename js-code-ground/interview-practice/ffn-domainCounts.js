@@ -82,12 +82,13 @@ const calculateClicksByDomain = (counts)=>{
         // mydomainClicks[each.split(",")[1]] = each.split(",")[0];
         mydomains.set(each.split(",")[1],each.split(",")[0]);
         // mobile.yahoo.com --> 90
-        if(each.split(",")[1].split(".").length > 1){
+        let eachDomain = each.split(",")[1];
+        if(eachDomain.split(".").length > 1){
 
-        for(let i=0;i<each.split(",")[1].split(".").length;i++){
+        for(let i=0;i<eachDomain.split(".").length;i++){
 
-            if(i!=0 && !mydomains.has(each.split(",")[1].split(".").slice(i,each.split(",")[1].split(".").length-1).join("."))){
-                mydomains.set(each.split(",")[1].split(".")[i],each.split(",")[1]);
+            if(i!=0 && !mydomains.has(eachDomain.split(".").slice(i,each.split(",")[1].split(".").length-1).join("."))){
+                mydomains.set(eachDomain.split(".").slice(i,(each.split(",")[1].split(".").length-1)).join("."),each.split(",")[0]);
             }
 
         }
@@ -96,7 +97,7 @@ const calculateClicksByDomain = (counts)=>{
 
 
     })
-    console.log(mydomains);
+    console.log(Object.fromEntries([...mydomains]));
 
 }
 calculateClicksByDomain(counts);
