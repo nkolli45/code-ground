@@ -2,6 +2,7 @@
  * @param {numsber[]} nums sorted arrays with duplicates
  * @return {numsber}
  */
+import {testmyFunction} from './delete-substring';
 
 const removeDuplicates = function(nums) {
     let write = 0
@@ -15,4 +16,6 @@ const removeDuplicates = function(nums) {
     // unique values
     return write, nums;
 };
-console.log(removeDuplicates([1,1,1,1,2,2,2,2,3,3,3,3]));
+// console.log(removeDuplicates([1,1,1,1,2,2,2,2,3,3,3,3]));
+
+console.log(testmyFunction(really));
