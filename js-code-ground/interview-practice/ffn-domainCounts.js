@@ -1,4 +1,3 @@
-
 /*
 You are in charge of a display advertising program. Your ads are displayed on websites all over the internet. You have some CSV input data that counts how many times that users have clicked on an ad on each individual domain. Every line consists of a click count and a domain name, like this:
 
@@ -43,6 +42,7 @@ n: number of domains in the input
 (individual domains and subdomains have a constant upper length)
 */
 
+
 const counts = [
     "900,google.com",
     "60,mail.yahoo.com",
@@ -79,25 +79,30 @@ const calculateClicksByDomain = (counts)=>{
     // mydomainClicks = {};
     mydomains = new Map();
     counts.forEach((each)=>{
-        // mydomainClicks[each.split(",")[1]] = each.split(",")[0];
-        mydomains.set(each.split(",")[1],each.split(",")[0]);
         // mobile.yahoo.com --> 90
         let eachDomain = each.split(",")[1];
-        if(eachDomain.split(".").length > 1){
-
+    // console.log(eachDomain,'first split')
         for(let i=0;i<eachDomain.split(".").length;i++){
-
-            if(i!=0 && !mydomains.has(eachDomain.split(".").slice(i,each.split(",")[1].split(".").length-1).join("."))){
-                mydomains.set(eachDomain.split(".").slice(i,(each.split(",")[1].split(".").length-1)).join("."),each.split(",")[0]);
+            // console.log(eachDomain.split("."),eachDomain.split(".").length,'second split')
+            // console.log(eachDomain.split(".").slice(i,eachDomain.split(".").length).join("."),'we get keys');
+            let keyToinsert = eachDomain.split(".").slice(i,eachDomain.split(".").length).join(".");
+            if(!mydomains.has(keyToinsert)){
+                // unique entry
+                mydomains.set(keyToinsert,each.split(",")[0]*1);
             }
-
+            else
+            {
+                // matching domians find and some
+                mydomains.set(keyToinsert,mydomains.get(keyToinsert)*1+each.split(",")[0]*1);
+                // console.log('foundkey',mydomains.get(keyToinsert)*1+each.split(",")[0]*1)
+            }
         }
 
-        }
 
 
     })
-    console.log(Object.fromEntries([...mydomains]));
+
+    console.log(Object.fromEntries([...mydomains].sort()));
 
 }
 calculateClicksByDomain(counts);
